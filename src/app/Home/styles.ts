@@ -4,9 +4,10 @@ export const styles = StyleSheet.create({
     
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#d0d2d8',
+    paddingTop: 62,
     alignItems: 'center',
-    justifyContent: 'center',
+    padding: 24,
   },
   text:{
     fontSize: 32,
