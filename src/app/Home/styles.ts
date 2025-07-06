@@ -10,9 +10,10 @@ export const styles = StyleSheet.create({
 
   },
   text:{
-    fontSize: 32,
-    fontWeight: 700,
-    color: "red"
+    fontSize: 28,
+    fontWeight: 700,  
+    color: "red",
+    textAlign: "center"
   },
   logo: {
     height: 34,
