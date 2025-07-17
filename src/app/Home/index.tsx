@@ -14,7 +14,7 @@ export default function Home() {
       <View style={styles.form}>
         <Input placeholder='Ex: Maça' />
         <Button title='adicionar' />
-        <Text style={styles.text}>Veja sua lista de compra!!!</Text>
+        <Text style={styles.text}>Veja sua lista de compraqqq!!!</Text>
       </View>
       <View style={styles.content}>
         <Filter status={FilterStatus.DONE} isActive />  
