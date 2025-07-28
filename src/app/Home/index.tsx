@@ -6,6 +6,7 @@ import { Input } from '@/components/Input';
 import { styles } from './styles';
 import { Filter } from '@/components/Filter';
 import { FilterStatus } from '@/types/FilterStatus';
+import { Item } from '@/components/Item';
 
 const FILTER_STATUS: FilterStatus[] = [FilterStatus.DONE, FilterStatus.PENDING]
 
@@ -27,6 +28,10 @@ export default function Home() {
               <Text style={styles.clearText}>Limpar</Text>
             </TouchableOpacity>
           </View>
+          <Item data={{ status: FilterStatus.DONE, description: 'Maçã' }} 
+            OnStatus={() => console.log("trocar status")}
+            OnRemove={() => console.log("remover item")}
+          />
       </View>
     </View>
   );
