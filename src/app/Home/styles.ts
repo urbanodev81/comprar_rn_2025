@@ -12,7 +12,7 @@ export const styles = StyleSheet.create({
   text:{
     fontSize: 28,
     fontWeight: 700,  
-    color: "red",
+    color: "#db0a0a",
     textAlign: "center"
   },
   logo: {
@@ -50,6 +50,22 @@ export const styles = StyleSheet.create({
     fontSize: 12,
     color: "#828282",
     fontWeight: 600,
-  }
-
+  },
+  separator: {
+    width: '100%',
+    height: 1,
+    backgroundColor: '#EEF0F5',
+    marginVertical: 16,
+    marginTop: 12,
+  },
+  flatListContent: {
+    paddingTop: 16,
+    paddingBottom: 24,
+  },
+  empty: {
+    fontSize: 24,
+    color: '#db0a0a',
+    textAlign: 'center',
+    marginTop: 20,
+  },
 });
