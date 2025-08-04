@@ -59,7 +59,7 @@ export default function Home() {
             })}
           </ScrollView> */}
         <FlatList
-          data={[]}
+          data={ITENS}
           keyExtractor={(item) => item.id.toString()}
           renderItem={({ item }) => (
             <Item 
