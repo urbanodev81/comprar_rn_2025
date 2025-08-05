@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { Image, Text, View, TouchableOpacity, ScrollView, FlatList} from 'react-native';
+import { Image, Text, View, TouchableOpacity, ScrollView, FlatList, Alert} from 'react-native';
 import { Button } from '@/components/Button';
 import { Input } from '@/components/Input';
 
@@ -10,33 +10,54 @@ import { Item } from '@/components/Item';
 import { useState } from 'react';
 
 const FILTER_STATUS: FilterStatus[] = [FilterStatus.DONE, FilterStatus.PENDING]
+
 // const ITENS = Array.from({ length: 100 }).map((_, index) => index);
-const ITENS = [
-  { id: 1, status: FilterStatus.DONE, description: 'Maçã'},
-  { id: 2, status: FilterStatus.PENDING, description: 'Banana'},
-  { id: 3, status: FilterStatus.DONE, description: 'Laranja'},
-  { id: 4, status: FilterStatus.PENDING, description: 'Abacaxi'},
-  { id: 5, status: FilterStatus.DONE, description: 'Uva'},
-  { id: 6, status: FilterStatus.PENDING, description: 'Manga'},
-  { id: 7, status: FilterStatus.DONE, description: 'Pera'},
-  { id: 8, status: FilterStatus.PENDING, description: 'Kiwi'},
-  { id: 9, status: FilterStatus.DONE, description: 'Cereja'},
-  { id: 10, status: FilterStatus.PENDING, description: 'Melancia'},
-  { id: 11, status: FilterStatus.DONE, description: 'Abacate'},
-  { id: 12, status: FilterStatus.PENDING, description: 'Limão'},
-  { id: 13, status: FilterStatus.DONE, description: 'Coco'},
-  { id: 14, status: FilterStatus.PENDING, description: 'Mamão'},
-  { id: 15, status: FilterStatus.DONE, description: 'Framboesa'},
-]
+// const ITENS = [
+//   { id: 1, status: FilterStatus.DONE, description: 'Maçã'},
+//   { id: 2, status: FilterStatus.PENDING, description: 'Banana'},
+//   { id: 3, status: FilterStatus.DONE, description: 'Laranja'},
+//   { id: 4, status: FilterStatus.PENDING, description: 'Abacaxi'},
+//   { id: 5, status: FilterStatus.DONE, description: 'Uva'},
+//   { id: 6, status: FilterStatus.PENDING, description: 'Manga'},
+//   { id: 7, status: FilterStatus.DONE, description: 'Pera'},
+//   { id: 8, status: FilterStatus.PENDING, description: 'Kiwi'},
+//   { id: 9, status: FilterStatus.DONE, description: 'Cereja'},
+//   { id: 10, status: FilterStatus.PENDING, description: 'Melancia'},
+//   { id: 11, status: FilterStatus.DONE, description: 'Abacate'},
+//   { id: 12, status: FilterStatus.PENDING, description: 'Limão'},
+//   { id: 13, status: FilterStatus.DONE, description: 'Coco'},
+//   { id: 14, status: FilterStatus.PENDING, description: 'Mamão'},
+//   { id: 15, status: FilterStatus.DONE, description: 'Framboesa'},
+// ]
 
 export default function Home() {
   const [filter, setFilter] = useState<FilterStatus>(FilterStatus.DONE);
+  const [description, setDescription] = useState("");
+  const [items, setItems] = useState<any>([]);
+
+ function handleAdd() {
+    if(!description.trim())
+      Alert.alert("Adicionar Item", "informe a descrição do item para adicionar à lista");
+    }
+
+    const newItem = {
+      id: Math.random(),
+      status: FilterStatus.PENDING,
+      description
+    };
+
+    setItems((prevState) => [...prevState, newItem]);
+
+
   return (
     <View style={styles.container}>
       <Image source={require('@/assets/logo.png')} style={styles.logo} />
       <View style={styles.form}>
-        <Input placeholder='Ex: Maça' />
-        <Button title='adicionar' />
+        <Input 
+          placeholder="Ex: Maça"
+          onChangeText={setDescription}
+        />
+        <Button title='adicionar' onPress={handleAdd} />
         <Text style={styles.text}>Veja sua lista dsse compra!!!</Text>
       </View>
       <View style={styles.content}>
@@ -66,7 +87,7 @@ export default function Home() {
             })}
           </ScrollView> */}
         <FlatList
-          data={ITENS}
+          data={items}
           keyExtractor={(item) => item.id.toString()}
           renderItem={({ item }) => (
             <Item 
