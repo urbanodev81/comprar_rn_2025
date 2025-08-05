@@ -7,6 +7,7 @@ import { styles } from './styles';
 import { Filter } from '@/components/Filter';
 import { FilterStatus } from '@/types/FilterStatus';
 import { Item } from '@/components/Item';
+import { useState } from 'react';
 
 const FILTER_STATUS: FilterStatus[] = [FilterStatus.DONE, FilterStatus.PENDING]
 // const ITENS = Array.from({ length: 100 }).map((_, index) => index);
@@ -29,18 +30,24 @@ const ITENS = [
 ]
 
 export default function Home() {
+  const [filter, setFilter] = useState<FilterStatus>(FilterStatus.DONE);
   return (
     <View style={styles.container}>
       <Image source={require('@/assets/logo.png')} style={styles.logo} />
       <View style={styles.form}>
         <Input placeholder='Ex: Maça' />
         <Button title='adicionar' />
-        <Text style={styles.text}>Veja sua lista de compraqqq!!!</Text>
+        <Text style={styles.text}>Veja sua lista dsse compra!!!</Text>
       </View>
       <View style={styles.content}>
         <View style={styles.header}>
           {FILTER_STATUS.map((status) =>(
-              <Filter key={status} status={status} isActive />
+              <Filter 
+                key={status} 
+                status={status} 
+                isActive={status === filter}
+                onPress={() => setFilter(status)}
+                />
             ))}
             <TouchableOpacity style={styles.clearButton}>
               <Text style={styles.clearText}>Limparw</Text>
