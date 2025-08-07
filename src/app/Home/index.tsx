@@ -36,17 +36,19 @@ export default function Home() {
   const [items, setItems] = useState<any>([]);
 
  function handleAdd() {
-    if(!description.trim())
+    if(!description.trim()){
       Alert.alert("Adicionar Item", "informe a descrição do item para adicionar à lista");
     }
 
     const newItem = {
-      id: Math.random(),
+      id: Math.random().toString(36).substring(2), // gera um id aleatório
+      description,
       status: FilterStatus.PENDING,
-      description
-    };
+    }
 
     setItems((prevState) => [...prevState, newItem]);
+  //  console.log(newItem);
+  }
 
 
   return (
