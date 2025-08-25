@@ -7,7 +7,9 @@ import { styles } from './styles';
 import { Filter } from '@/components/Filter';
 import { FilterStatus } from '@/types/FilterStatus';
 import { Item } from '@/components/Item';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+
+import { ItemStorage, itemsStorage } from '@/storage/itensStorage';
 
 const FILTER_STATUS: FilterStatus[] = [FilterStatus.DONE, FilterStatus.PENDING]
 
@@ -33,9 +35,9 @@ const FILTER_STATUS: FilterStatus[] = [FilterStatus.DONE, FilterStatus.PENDING]
 export default function Home() {
   const [filter, setFilter] = useState<FilterStatus>(FilterStatus.DONE);
   const [description, setDescription] = useState("");
-  const [items, setItems] = useState<any>([]);
+  const [items, setItems] = useState<ItemStorage[]>([]);
 
- function handleAdd() {
+async function handleAdd() {
     if(!description.trim()){
       Alert.alert("Adicionar Item", "informe a descrição do item para adicionar à lista");
     }
@@ -46,10 +48,27 @@ export default function Home() {
       status: FilterStatus.PENDING,
     }
 
-    setItems((prevState) => [...prevState, newItem]);
+    await itemsStorage.add(newItem);
+    await itemByStatus();
+    //setItems((prevState) => [...prevState, newItem]);
   //  console.log(newItem);
   }
 
+  async function itemByStatus(){
+    try{
+      const response = await itemsStorage.getByStatus(filter);
+      setItems(response);
+      console.log(response);
+
+    } catch(error){
+        Alert.alert("Erro ao buscar itens");
+        console.error("Error fetching items by status:", error);
+      }
+  }
+
+  useEffect(() =>{
+    itemByStatus();
+  }, [filter]);
 
   return (
     <View style={styles.container}>
@@ -97,7 +116,7 @@ export default function Home() {
               data={item} 
               OnStatus={() => console.log("trocar status")}
               OnRemove={() => console.log("remover item")}
-            />
+            />  
           )}
           ItemSeparatorComponent={() => <View style={styles.separator} />}
           contentContainerStyle={styles.flatListContent}
