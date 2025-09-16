@@ -52,6 +52,9 @@ async function handleAdd() {
     await itemByStatus();
     //setItems((prevState) => [...prevState, newItem]);
   //  console.log(newItem);
+    setFilter(FilterStatus.PENDING);
+    Alert.alert("Item adicionado com sucesso!", `Adicionado ${description} à lista`);
+    setDescription("");
   }
 
   async function itemByStatus(){
@@ -77,6 +80,7 @@ async function handleAdd() {
         <Input 
           placeholder="Ex: Maça"
           onChangeText={setDescription}
+          value={description}
         />
         <Button title='adicionar' onPress={handleAdd} />
         <Text style={styles.text}>Veja sua lista dsse compra!!!</Text>
